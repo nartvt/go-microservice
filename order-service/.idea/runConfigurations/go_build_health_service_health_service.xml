@@ -1,0 +1,15 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="go build health-service health-service" type="GoApplicationRunConfiguration" factoryName="Go Application" editBeforeRun="true" singleton="false" nameIsGenerated="true">
+    <module name="health-service" />
+    <working_directory value="$PROJECT_DIR$" />
+    <useCustomBuildTags value="true" />
+    <kind value="DIRECTORY" />
+    <directory value="$PROJECT_DIR$" />
+    <filePath value="$PROJECT_DIR$/../health-service|$PROJECT_DIR$" />
+    <redirect_input value="true" />
+    <input_file value="$PROJECT_DIR$/app.go" />
+    <method v="2">
+      <option name="GoBeforeRunTask" command="mod tidy" />
+    </method>
+  </configuration>
+</component>
