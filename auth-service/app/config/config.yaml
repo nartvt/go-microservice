@@ -1,4 +1,9 @@
-posgres:
+server:
+  host: 127.0.0.1
+  port: 50051
+  timeout: 30000
+
+postgres:
   host: 127.0.0.1
   port: 5432
   userName: postgres
@@ -8,10 +13,3 @@ posgres:
 authorization:
   secretKey: 'b94d27b9934d3e08a52e52d7da7dabfac484efe37a5380ee9088f7ace2efcde9'
   expireTime: 86400
-
-
-authGrpcConfig:
-  host: 127.0.0.1
-  port: 50051
-  readTimeout: 360000
-  writeTimeOut: 360000

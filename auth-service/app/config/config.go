@@ -9,9 +9,16 @@ import (
 var Config config
 
 type config struct {
-	Posgres        DBConnectInfo
+	Postgres       postgresqlInfo
+	Server         server
 	Authorization  auth
 	AuthGrpcConfig authGrpcConfig
+}
+
+type server struct {
+	Host    string
+	Port    int
+	TimeOut int
 }
 
 type auth struct {
@@ -26,7 +33,7 @@ type authGrpcConfig struct {
 	WriteTimeout int
 }
 
-type DBConnectInfo struct {
+type postgresqlInfo struct {
 	Host     string
 	Port     int
 	UserName string

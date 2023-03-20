@@ -1,0 +1,5 @@
+authGrpcConfig:
+  host: 127.0.0.1
+  port: 50051
+  readTimeout: 360000
+  writeTimeOut: 360000
