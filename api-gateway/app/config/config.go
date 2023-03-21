@@ -6,11 +6,21 @@ import (
 	"github.com/spf13/viper"
 )
 
-var Config config
+var conf config
 
 type config struct {
-	Posgres DBConnectInfo
-	auth
+	Postgres       DBConnectInfo
+	Server         server
+	Auth           auth
+	AuthGrpcConfig authGrpcConfig
+}
+
+type server struct {
+	Host            string
+	Port            int
+	ReadTimeOut     int
+	WriteTimeOut    int
+	ShutdownTimeOut int
 }
 
 type auth struct {
@@ -19,15 +29,28 @@ type auth struct {
 }
 
 type DBConnectInfo struct {
-	Host     string
-	Port     int
-	UserName string
-	Password string
-	Database string
+	Host         string
+	Port         int
+	UserName     string
+	Password     string
+	Database     string
+	MaxIdleConns int
+	MaxOpenConns int
+}
+
+type authGrpcConfig struct {
+	Host         string
+	Port         int
+	ReadTimeout  int
+	WriteTimeout int
 }
 
 func init() {
 	load()
+}
+
+func Get() config {
+	return conf
 }
 
 func load() {
@@ -37,9 +60,9 @@ func load() {
 		log.Panic("Config can't read")
 		return
 	}
-	if err := viper.Unmarshal(&Config); err != nil {
+	if err := viper.Unmarshal(&conf); err != nil {
 		log.Panic("Config can't load")
 		return
 	}
-	log.Println(Config)
+	log.Println(conf)
 }

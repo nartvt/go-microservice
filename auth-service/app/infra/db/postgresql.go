@@ -1,20 +1,19 @@
 package db
 
 import (
+	"auth-service/app/config"
 	"fmt"
 
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"
 
 	"gorm.io/driver/postgres"
-
-	"auth-service/app/config"
 )
 
 var postgresDB *gorm.DB
 
 func InitPostgres() {
-	conf := config.Config
+	conf := config.Get()
 	dsn := fmt.Sprintf("postgres://%s:%s@%s:%d/%s",
 		conf.Postgres.UserName,
 		conf.Postgres.Password,

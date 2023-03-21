@@ -17,6 +17,7 @@ type UserRepo struct {
 	Email       string
 	PhoneNumber string
 	FullName    string
+	Role        int
 	CreatedAt   *time.Time
 	UpdatedAt   *time.Time
 }
@@ -103,5 +104,6 @@ func (user) Bind(userEntity *entities.User) *UserRepo {
 		PhoneNumber: userEntity.PhoneNumber,
 		CreatedAt:   userEntity.CreatedAt,
 		UpdatedAt:   userEntity.UpdatedAt,
+		Role:        1,
 	}
 }

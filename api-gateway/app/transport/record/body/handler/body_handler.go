@@ -2,6 +2,7 @@ package handler
 
 import (
 	"fmt"
+	"github.com/gofiber/fiber/v2"
 	"net/http"
 
 	uRepo "api-gateway/app/domain/usercases/user/repo"

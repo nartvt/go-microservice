@@ -1,26 +1,25 @@
 package db
 
 import (
+	"api-gateway/app/config"
 	"fmt"
 
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"
 
 	"gorm.io/driver/postgres"
-
-	"api-gateway/app/config"
 )
 
 var postgresDB *gorm.DB
 
 func InitPostgres() {
-	conf := config.Config
+	conf := config.Get()
 	dsn := fmt.Sprintf("postgres://%s:%s@%s:%d/%s",
-		conf.Posgres.UserName,
-		conf.Posgres.Password,
-		conf.Posgres.Host,
-		conf.Posgres.Port,
-		conf.Posgres.Database,
+		conf.Postgres.UserName,
+		conf.Postgres.Password,
+		conf.Postgres.Host,
+		conf.Postgres.Port,
+		conf.Postgres.Database,
 	)
 
 	var err error

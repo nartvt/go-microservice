@@ -1,15 +1,15 @@
 package handler
 
 import (
-	"fmt"
-	"log"
-	"net/http"
-
 	"api-gateway/app/domain/usercases/record/exercise/repo"
 	uRepo "api-gateway/app/domain/usercases/user/repo"
 	"api-gateway/app/transport"
 	"api-gateway/app/transport/record/exercise/request"
 	"api-gateway/app/transport/record/exercise/response"
+	"fmt"
+	"github.com/gofiber/fiber/v2"
+	"log"
+	"net/http"
 )
 
 type ExerciseHandler struct {

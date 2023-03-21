@@ -1,24 +1,25 @@
 package config
 
 import (
-	"log"
-
 	"github.com/spf13/viper"
+	"log"
 )
 
-var Config config
+var conf config
 
 type config struct {
-	Postgres       postgresqlInfo
-	Server         server
-	Authorization  auth
-	AuthGrpcConfig authGrpcConfig
+	Postgres DBConnectInfo
+	Server   server
+	Auth     auth
 }
 
 type server struct {
-	Host    string
-	Port    int
-	TimeOut int
+	Host            string
+	Port            int
+	ReadTimeOut     int
+	WriteTimeOut    int
+	ShutdownTimeOut int
+	ConnectTimeOut  int
 }
 
 type auth struct {
@@ -26,35 +27,34 @@ type auth struct {
 	ExpireTime int
 }
 
-type authGrpcConfig struct {
+type DBConnectInfo struct {
 	Host         string
 	Port         int
-	ReadTimeout  int
-	WriteTimeout int
-}
-
-type postgresqlInfo struct {
-	Host     string
-	Port     int
-	UserName string
-	Password string
-	Database string
+	UserName     string
+	Password     string
+	Database     string
+	MaxIdleConns int
+	MaxOpenConns int
 }
 
 func init() {
 	load()
 }
 
+func Get() config {
+	return conf
+}
+
 func load() {
 	viper.SetConfigName("config")
 	viper.AddConfigPath("app/config")
 	if err := viper.ReadInConfig(); err != nil {
-		log.Panic("Config can't read")
+		log.Panic("Config can't read", err.Error())
 		return
 	}
-	if err := viper.Unmarshal(&Config); err != nil {
-		log.Panic("Config can't load")
+	if err := viper.Unmarshal(&conf); err != nil {
+		log.Panic("Config can't load", err.Error())
 		return
 	}
-	log.Println(Config)
+	log.Println(conf)
 }

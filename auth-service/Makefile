@@ -1,7 +1,8 @@
-NAME=auth-component
+NAME=auth-service
+BIN_NAME="auth_service"
+DATE_NOW=$(shell date +%Y_%m_%d_%m_%S)
 
-PROTOBUF_MESSAGE=$(shell find app/protobuf/message -type f -name "*.proto")
-PROTOBUF_FUNC=$(shell find app/protobuf/rpc -type f -name "*.proto")
+deploy: backup build
 
 grpc: grpc_models grpc_rpc grpc_moves
 
@@ -26,7 +27,13 @@ grpc_rpc_move:
 	@echo "Move proto rpc: " \
 	&& mv app/protobuf/rpc/*.go app/proto-gen/rpc/ && echo "===> ok"
 
+backup:
+	@echo "Backup Current Binary:" \
+	&& if [ -e bin/${BIN_NAME} ]; \
+	then mv bin/${BIN_NAME} bin/${BIN_NAME}_${DATE_NOW} && echo " ==> OK"; \
+	else echo "File does not exist"; fi
+
 build:
-	@echo "AUTH SERVICE BUILD: "
+	@echo "auth service build: "
 	@echo "Create binary: " && mkdir -p bin && echo "  ===> OK"
-	@echo "GO BUILD: " && go build  -o bin/auth_service app/internal/server/*.go && echo " ===> BUILD SUCCESS"
+	@echo "GO BUILD: " && go build  -o bin/${BIN_NAME} app/internal/server/*.go && echo " ===> BUILD SUCCESS"

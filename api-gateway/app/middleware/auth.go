@@ -8,12 +8,12 @@ import (
 	"api-gateway/app/domain/usercases/user/repo"
 )
 
-func GetCurrentUser(userName string) (*repo.UserRepo, error) {
-	return repo.User.GetUserByUserName(userName)
+func GetCurrentUser(ctx *fiber.Ctx) (*repo.UserRepo, error) {
+	return repo.User.GetUserByUserName(ctx.Get(userNameKey))
 }
 
 func IsAdmin(ctx *fiber.Ctx) bool {
-	role := ctx.Get("role")
+	role := ctx.Get(roleKey)
 	roleId, _ := strconv.Atoi(role)
 	return roleId == 1 || roleId == 2
 }

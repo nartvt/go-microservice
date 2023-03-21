@@ -1,11 +1,13 @@
 package middleware
 
 import (
+	conf "api-gateway/app/config"
 	"fmt"
+	"github.com/dgrijalva/jwt-go"
+	"github.com/gofiber/fiber/v2"
 	"strings"
 	"time"
 
-	conf "api-gateway/app/config"
 	"api-gateway/app/domain/usercases/user/repo"
 )
 
@@ -27,10 +29,10 @@ type userAuth struct {
 
 var Auth *jwtToken
 var (
-	jwtSecretKey      = conf.Config.SecretKey // replace with your own secret key
-	jwtTokenDuration  = time.Hour * 24        // customize token duration based on your needs
-	jwtIssuer         = "api-gateway"         // replace with your own issuer name
-	jwtRefreshExpires = time.Hour * 24 * 30   // customize refresh token duration based on your needs
+	jwtSecretKey      = conf.Get().Auth.SecretKey // replace with your own secret key
+	jwtTokenDuration  = time.Hour * 24            // customize token duration based on your needs
+	jwtIssuer         = "api-gateway"             // replace with your own issuer name
+	jwtRefreshExpires = time.Hour * 24 * 30       // customize refresh token duration based on your needs
 )
 
 func init() {
@@ -91,7 +93,8 @@ func (*jwtToken) deserializeUser() fiber.Handler {
 			if user == nil {
 				return c.Status(fiber.StatusForbidden).JSON(fiber.Map{"status": "fail", "message": fmt.Sprintf("user invalid")})
 			}
-			c.Locals(userKey, user)
+			c.Locals(userNameKey, user.UserName)
+			c.Locals(roleKey, user.Role)
 			return c.Next()
 		}
 		return c.Status(fiber.StatusUnauthorized).JSON(fiber.Map{
