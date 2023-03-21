@@ -19,8 +19,8 @@ import (
 
 func main() {
 	setupInfra()
-	defer closeInfra()
 	app := fiber.New(middleware.Config())
+	defer closeInfra(app)
 	initRouter(app)
 	run(app)
 }
@@ -36,7 +36,7 @@ func run(app *fiber.App) {
 		address := fmt.Sprintf("%s:%d", config.Get().Server.Host, config.Get().Server.Port)
 		err := app.Listen(address)
 		if err != nil {
-			log.Println("Application startup interrupt")
+			log.Println("Application startup interrupt", err.Error())
 			cancel()
 		}
 	}()
@@ -48,20 +48,16 @@ func run(app *fiber.App) {
 		fmt.Println("Server timed out, shutting down...")
 	}
 
-	fmt.Println("Shutting down server...")
-	if err := app.ShutdownWithTimeout(timeOut); err != nil {
-		fmt.Printf("Error shutting down server: %v\n", err)
-	}
-
 	time.Sleep(time.Second)
 	log.Println("Shutdown complete.")
 }
 
 func setupInfra() {
 	setupDatabase()
+	setupAuthGrpcClient()
 }
 
-func setupAuthGrpc() {
+func setupAuthGrpcClient() {
 	// Every client connect to grpc server
 	// must build their own configuration themselves.
 	conf := config.Get()
@@ -76,10 +72,18 @@ func setupAuthGrpc() {
 }
 
 func pingGrpc() {
-	client.Hello.Ping()
+	if _, err := client.Hello.Ping(); err != nil {
+		log.Println(err.Error())
+		panic(err)
+	}
 }
-func closeInfra() {
+func closeInfra(app *fiber.App) {
 	db.ClosePostgres()
+	fmt.Println("Shutting down server...")
+	if err := app.ShutdownWithTimeout(time.Duration(config.Get().Server.ShutdownTimeOut)); err != nil {
+		fmt.Printf("Error shutting down server: %v\n", err)
+	}
+
 }
 
 func setupDatabase() {

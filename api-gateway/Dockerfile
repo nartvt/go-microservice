@@ -2,12 +2,8 @@ FROM golang:1.17-alpine
 
 WORKDIR app/
 
-COPY . .
+COPY bin/api_gateway .
 
-RUN go mod tidy
+CMD ["./","api_gateway" ]
 
-RUN go run *.go
-
-CMD ["go","version" ]
-
-EXPOSE 3000
+EXPOSE 9000

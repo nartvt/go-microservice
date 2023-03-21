@@ -2,7 +2,7 @@ NAME=api-gateway
 BIN_NAME="api_gateway"
 DATE_NOW=$(shell date +%Y_%m_%d_%m_%S)
 
-deploy: backup build
+deploy: backup build docker_build
 
 backup:
 	@echo "Backup Current Binary:" \
@@ -19,3 +19,9 @@ build:
 cleanup:
 	@echo "clean up binary" \
 	&& rm -rf bin/*
+
+docker_build:
+	@echo "api gateway docker image build: " \
+	&& docker build -t nartvt/${BIN_NAME}_${DATE_NOW} .  \
+	&& echo " ==> docker image build success" \
+	&& docker scan  --version nartvt/${BIN_NAME}_${DATE_NOW}

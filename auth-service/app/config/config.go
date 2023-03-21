@@ -8,9 +8,10 @@ import (
 var conf config
 
 type config struct {
-	Postgres DBConnectInfo
-	Server   server
-	Auth     auth
+	Postgres       DBConnectInfo
+	Server         server
+	Auth           auth
+	AuthGrpcConfig authGrpcConfig
 }
 
 type server struct {
@@ -25,6 +26,13 @@ type server struct {
 type auth struct {
 	SecretKey  string
 	ExpireTime int
+}
+
+type authGrpcConfig struct {
+	Host         string
+	Port         int
+	ReadTimeout  int
+	WriteTimeout int
 }
 
 type DBConnectInfo struct {
