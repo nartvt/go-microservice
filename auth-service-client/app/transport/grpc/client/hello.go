@@ -4,26 +4,25 @@ import (
 	"auth-service/app/infra/grpc"
 	"auth-service/app/proto-gen/message"
 	"context"
-	"fmt"
+	"log"
 )
 
-var Hello *hello
+var User *user
 
-type hello struct{}
+type user struct{}
 
 func init() {
-	Hello = &hello{}
+	User = &user{}
 }
 
-func (hello) Ping() (*message.HelloResponse, error) {
+func (user) Ping() {
 	ctx, cancel := context.WithTimeout(context.Background(), grpc.GetAuthGrpcReadTimeout())
 	defer cancel()
-	req := &message.HelloRequest{Name: "From Client: Ping"}
-	resp, err := grpc.GrpcClient().Hello().SayHello(ctx, req)
+	req := &message.UserRequest{Name: "From Client: Ping"}
+	resp, err := grpc.GetGrpcClient().UserClient().Ping(ctx, req)
 	if err != nil {
-		fmt.Println(err.Error())
-		return resp, err
+		log.Println(err.Error())
+		return
 	}
-	fmt.Println(resp)
-	return resp, nil
+	log.Println(resp)
 }

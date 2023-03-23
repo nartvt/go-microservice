@@ -1,14 +1,13 @@
 package handler
 
 import (
+	"api-gateway/app/domain/usercases/user/repo"
+	"api-gateway/app/transport"
+	"api-gateway/app/transport/user/response"
 	"fmt"
 	"net/http"
 
 	"github.com/gofiber/fiber/v2"
-
-	"api-gateway/app/domain/usercases/user/repo"
-	"api-gateway/app/transport"
-	"api-gateway/app/transport/user/response"
 )
 
 type UserHandler struct {

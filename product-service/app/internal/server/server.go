@@ -4,10 +4,15 @@ import "product-service/app/infra/grpc"
 import "product-service/app/infra/db"
 
 func main() {
-	db.InitPostgres()
-	grpc.InitGrpcServer()
+	setupInfra()
+	defer CloseInfra()
 }
 
-func Close() {
+func CloseInfra() {
 	db.ClosePostgres()
+}
+
+func setupInfra() {
+	db.InitPostgres()
+	grpc.InitGrpcServer()
 }

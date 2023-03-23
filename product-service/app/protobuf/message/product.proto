@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package auth.message.product;
+option go_package = "product-service/app/transport/proto-gen/message";
+
+message ProductRequest {
+  int64   id        = 1;
+  string  name      = 2;
+  int64   createdAt = 3;
+  int64   updatedAt = 4;
+  int64   deletedAt = 5;
+}
+
+message ProductResponse {
+  int32   id         = 1;
+  string  name      = 2;
+  int64   createdAt = 3;
+  int64   updatedAt = 4;
+}

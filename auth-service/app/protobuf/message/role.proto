@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package auth.message.role;
+option go_package = "auth-service/app/proto-gen/message";
+
+message RoleRequest {
+  int64   id          = 1;
+  string  roleName   = 2;
+  int64   createdAt   = 3;
+}
+
+message RoleResponse {
+  int64   id          = 1;
+  string  roleName   = 2;
+  int64   createdAt   = 3;
+}

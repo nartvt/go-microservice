@@ -1,16 +1,9 @@
 package common
 
 import (
+	"api-gateway/app/infra/db"
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"
-
-	"api-gateway/app/infra/db"
-)
-
-const (
-	NewsfeedSectionTypeTopPage        = "top_page"
-	NewsfeedSectionTypePersonalRecord = "personal_record"
-	NewsfeedSectionTypeAbout          = "about_recommendations"
 )
 
 func BeginTx() *gorm.DB {

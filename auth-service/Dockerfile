@@ -4,6 +4,6 @@ WORKDIR app/
 
 COPY bin/auth_service .
 
-CMD ["./","api_service" ]
+CMD ["./","auth_service" ]
 
-EXPOSE 9090
+EXPOSE 9000

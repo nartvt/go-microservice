@@ -2,6 +2,9 @@ NAME=auth-service
 BIN_NAME="auth_service"
 DATE_NOW=$(shell date +%Y_%m_%d_%m_%S)
 
+PROTOBUF_MESSAGE=$(shell find app/protobuf/message -type f -name "*.proto")
+PROTOBUF_RPC=$(shell find app/protobuf/rpc -type f -name "*.proto")
+
 deploy: backup build docker_build
 
 grpc: grpc_models grpc_rpc grpc_moves
@@ -9,19 +12,20 @@ grpc: grpc_models grpc_rpc grpc_moves
 grpc_moves: grpc_model_move grpc_rpc_move
 
 grpc_models:
-	@echo "Generate proto message: " \
-	&& protoc --go_out=. --go_opt=paths=source_relative app/protobuf/message/hello.proto \
-	&& echo "  ===> success !"
+	@echo "Generate proto message: "
+	@$(foreach dir,$(PROTOBUF_MESSAGE), \
+	 	protoc --go_out=. --go_opt=paths=source_relative $(dir) && echo "Generate $(dir) ===> success !"; \
+	)
 
 grpc_model_move:
 	@echo "Move proto message: " \
 	&& mv app/protobuf/message/*.go app/proto-gen/message/ && echo "===> ok"
 
 grpc_rpc:
-	@echo "Generate proto rpc: " \
-	&& protoc --go_out=. --go_opt=paths=source_relative --go-grpc_out=. --go-grpc_opt=paths=source_relative app/protobuf/rpc/hello.proto \
-	&& echo "  ===> success !"
-
+	@echo "Generate proto rpc: "
+	@$(foreach dir,$(PROTOBUF_RPC), \
+		protoc --go_out=. --go_opt=paths=source_relative --go-grpc_out=. --go-grpc_opt=paths=source_relative $(dir) && echo "Generate $(dir) ===> success !" ; \
+	)
 
 grpc_rpc_move:
 	@echo "Move proto rpc: " \

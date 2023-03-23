@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+package auth.role.rpc;
+option go_package = "auth-service/app/proto-gen/rpc";
+import "app/protobuf/message/role.proto";
+
+service RoleService {
+  rpc GetRoleById(auth.message.role.RoleRequest)returns (auth.message.role.RoleResponse){};
+  rpc CreateRole(auth.message.role.RoleRequest)returns (auth.message.role.RoleResponse){};
+  rpc GetRoleByUserId(auth.message.role.RoleRequest)returns (auth.message.role.RoleResponse){};
+}

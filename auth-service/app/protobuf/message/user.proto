@@ -1,0 +1,37 @@
+syntax = "proto3";
+
+package auth.message.user;
+option go_package = "auth-service/app/proto-gen/message";
+
+message UserRequest {
+  int64   id           = 1;
+  string  name         = 2;
+  string  email        = 3;
+  string  userName     = 4;
+  string  firstName    = 5;
+  string  lastName     = 6;
+  string  phoneNumber  = 7;
+  string  password     = 8;
+  int64   createdAt    = 9;
+  int64   updatedAt    = 10;
+  int64   role         = 11;
+}
+
+
+message UserResponse{
+  int64   id           = 1;
+  string  name         = 2;
+  string  email        = 3;
+  string  userName     = 4;
+  string  fullName     = 5;
+  string  phoneNumber  = 6;
+  int64   createdAt    = 7;
+  int64   updatedAt    = 8;
+  int64   role         = 9;
+}
+
+message TokenResponse{
+  string userName     = 1;
+  string token        = 2;
+  string refreshToken = 3;
+}

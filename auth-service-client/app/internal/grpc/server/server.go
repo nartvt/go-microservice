@@ -15,10 +15,10 @@ func setupInfra() {
 	// Every client connect to grpc server
 	// must build their own configuration themselves.
 	conf := config.Config
-	grpcConf := grpc.GrpcConfigClient{
+	grpcConf := grpc.ConfigClient{
 		Host:         conf.AuthGrpcConfig.Host,
 		Port:         conf.AuthGrpcConfig.Port,
-		ReadTimwOut:  conf.AuthGrpcConfig.ReadTimeout,
+		ReadTimeOut:  conf.AuthGrpcConfig.ReadTimeout,
 		WriteTimeOut: conf.AuthGrpcConfig.WriteTimeout,
 	}
 	grpc.InitGrpcClient(grpcConf)
@@ -26,7 +26,7 @@ func setupInfra() {
 }
 
 func pingGrpc() {
-	tClient.Hello.Ping()
+	tClient.User.Ping()
 }
 
 func closeInfra() {

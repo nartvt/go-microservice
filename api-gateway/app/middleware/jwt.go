@@ -2,13 +2,12 @@ package middleware
 
 import (
 	conf "api-gateway/app/config"
+	"api-gateway/app/domain/usercases/user/repo"
 	"fmt"
 	"github.com/dgrijalva/jwt-go"
 	"github.com/gofiber/fiber/v2"
 	"strings"
 	"time"
-
-	"api-gateway/app/domain/usercases/user/repo"
 )
 
 const (
@@ -74,7 +73,7 @@ func (*jwtToken) deserializeUser() fiber.Handler {
 
 		if !token.Valid {
 			return c.Status(fiber.StatusUnauthorized).JSON(fiber.Map{
-				"message": "Invalid authorization token",
+				"message": "Invalid author token",
 			})
 		}
 
@@ -86,14 +85,14 @@ func (*jwtToken) deserializeUser() fiber.Handler {
 				})
 			}
 
-			user, err := repo.User.GetUserByUserName(userNameKey)
+			user, err := repo.User.GetUserByUserName(claims[userNameKey].(string))
 			if err != nil {
 				return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"status": "fail", "message": err.Error()})
 			}
 			if user == nil {
 				return c.Status(fiber.StatusForbidden).JSON(fiber.Map{"status": "fail", "message": fmt.Sprintf("user invalid")})
 			}
-			c.Locals(userNameKey, user.UserName)
+			c.Locals(userNameKey, claims[userNameKey].(string))
 			c.Locals(roleKey, user.Role)
 			return c.Next()
 		}
@@ -104,11 +103,11 @@ func (*jwtToken) deserializeUser() fiber.Handler {
 }
 func (*jwtToken) generateAccessToken(user *userAuth) (string, error) {
 	claims := jwt.MapClaims{
-		"id":     user.userId,
-		"iss":    fmt.Sprintf("%s-%s", jwtIssuer, jwtSecretKey),
-		"exp":    time.Now().Add(jwtTokenDuration).Unix(),
-		"sub":    user.userName,
-		"scopes": []string{"user"},
+		"userName": user.userName,
+		"iss":      fmt.Sprintf("%s-%s", jwtIssuer, jwtSecretKey),
+		"exp":      time.Now().Add(jwtTokenDuration).Unix(),
+		"sub":      user.userName,
+		"scopes":   []string{"user"},
 	}
 
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
@@ -142,7 +141,7 @@ func (j *jwtToken) authenticate() func(c *fiber.Ctx) error {
 		}
 		if currentUser == nil || currentUser.Password != request.Password {
 			return c.Status(fiber.StatusUnauthorized).JSON(fiber.Map{
-				"message": "Invalid authorization token",
+				"message": "Invalid author token",
 			})
 		}
 		// Authenticate user (e.g., check if username and password are valid)

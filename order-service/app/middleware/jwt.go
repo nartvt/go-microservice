@@ -72,7 +72,7 @@ func (*jwtToken) deserializeUser() fiber.Handler {
 
 		if !token.Valid {
 			return c.Status(fiber.StatusUnauthorized).JSON(fiber.Map{
-				"message": "Invalid authorization token",
+				"message": "Invalid author token",
 			})
 		}
 
@@ -139,7 +139,7 @@ func (j *jwtToken) authenticate() func(c *fiber.Ctx) error {
 		}
 		if currentUser == nil || currentUser.Password != request.Password {
 			return c.Status(fiber.StatusUnauthorized).JSON(fiber.Map{
-				"message": "Invalid authorization token",
+				"message": "Invalid author token",
 			})
 		}
 		// Authenticate user (e.g., check if username and password are valid)

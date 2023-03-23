@@ -2,7 +2,7 @@ package grpc
 
 import (
 	"auth-service/app/config"
-	"auth-service/app/domain/repo"
+	"auth-service/app/domain/usercases/user/repo"
 	"auth-service/app/proto-gen/rpc"
 	"context"
 	"fmt"
@@ -27,7 +27,8 @@ func InitGrpcServer() {
 	signal.Notify(shutdownChan, os.Interrupt, syscall.SIGTERM)
 
 	var (
-		hServer = repo.NewHello()
+		userGrpcServer = repo.User
+		roleGrpcServer = repo.RoleRepo
 	)
 
 	ops := []grpc.ServerOption{
@@ -36,7 +37,8 @@ func InitGrpcServer() {
 	}
 
 	grpcServer := grpc.NewServer(ops...)
-	rpc.RegisterExampleServiceServer(grpcServer, hServer)
+	rpc.RegisterUserServiceServer(grpcServer, userGrpcServer)
+	rpc.RegisterRoleServiceServer(grpcServer, roleGrpcServer)
 	go func() {
 		if err := grpcServer.Serve(listen); err != nil {
 			log.Fatalf("failed to serve: %v", err)
@@ -56,6 +58,7 @@ func interceptor(
 	handler grpc.UnaryHandler) (interface{}, error) {
 
 	log.Printf("received request: %v", req)
+	log.Println(info)
 	resp, err := handler(ctx, req)
 	log.Printf("sent response: %v", resp)
 	return resp, err

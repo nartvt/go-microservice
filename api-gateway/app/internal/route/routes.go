@@ -1,10 +1,9 @@
 package router
 
 import (
+	"api-gateway/app/middleware"
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/logger"
-
-	"api-gateway/app/middleware"
 )
 
 func SetupRoutes(app *fiber.App) {

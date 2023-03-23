@@ -11,7 +11,6 @@ import (
 	diaryRecordHandler "api-gateway/app/transport/record/diary/handler"
 	exerciseRecordHandler "api-gateway/app/transport/record/exercise/handler"
 	sectionHandler "api-gateway/app/transport/section/handler"
-
 	"github.com/gofiber/fiber/v2"
 )
 

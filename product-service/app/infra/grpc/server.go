@@ -7,8 +7,8 @@ import (
 	"log"
 	"net"
 	"product-service/app/config"
-	"product-service/app/domain/repo"
-	"product-service/app/proto-gen/rpc"
+	"product-service/app/domain/usercases/product/repo"
+	"product-service/app/transport/proto-gen/rpc"
 	"time"
 )
 
@@ -21,7 +21,7 @@ func InitGrpcServer() {
 	}
 
 	var (
-		hServer = repo.NewHello()
+		hServer = repo.Product
 	)
 
 	ops := []grpc.ServerOption{
@@ -29,10 +29,10 @@ func InitGrpcServer() {
 		grpc.UnaryInterceptor(interceptor),                                       // set unary interceptor
 	}
 
-	s := grpc.NewServer(ops...)
-	rpc.RegisterExampleServiceServer(s, hServer)
+	grpcServer := grpc.NewServer(ops...)
+	rpc.RegisterProductServiceServer(grpcServer, hServer)
 	log.Printf("Listening on %v", listen.Addr())
-	if err := s.Serve(listen); err != nil {
+	if err := grpcServer.Serve(listen); err != nil {
 		log.Fatalf("failed to serve: %v", err)
 	}
 }

@@ -1,15 +1,14 @@
 package middleware
 
 import (
-	"strconv"
-
-	"github.com/gofiber/fiber/v2"
-
+	"api-gateway/app/domain/models"
 	"api-gateway/app/domain/usercases/user/repo"
+	"github.com/gofiber/fiber/v2"
+	"strconv"
 )
 
-func GetCurrentUser(ctx *fiber.Ctx) (*repo.UserRepo, error) {
-	return repo.User.GetUserByUserName(ctx.Get(userNameKey))
+func GetCurrentUser(userName string) (*models.UserRepo, error) {
+	return repo.User.GetUserByUserName(userName)
 }
 
 func IsAdmin(ctx *fiber.Ctx) bool {

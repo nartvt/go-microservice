@@ -1,9 +1,0 @@
-syntax = "proto3";
-
-package authrpc;
-option go_package = "auth-service/app/proto-gen/rpc";
-import "app/protobuf/message/hello.proto";
-
-service ExampleService {
-  rpc SayHello (authmodel.hello.HelloRequest) returns (authmodel.hello.HelloResponse){}
-}

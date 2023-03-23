@@ -14,7 +14,7 @@ build:
 	@echo ${DATE_NOW}
 	@echo "${NAME} build: "
 	@echo "Create binary: " && mkdir -p bin && echo "  ===> OK"
-	@echo "GO BUILD: " && go build  -o bin/${BIN_NAME} app/internal/server/*.go && echo " ===> BUILD SUCCESS"
+	@echo "GO BUILD: " && go build  -o bin/${BIN_NAME} app/pkg/internal/server/*.go && echo " ===> BUILD SUCCESS"
 
 cleanup:
 	@echo "clean up binary" \

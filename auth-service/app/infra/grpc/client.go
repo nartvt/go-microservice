@@ -20,17 +20,18 @@ var (
 	grpcWriteTimeout time.Duration
 )
 
-type GrpcConfigClient struct {
+type ConfigClient struct {
 	Host         string
 	Port         int
-	ReadTimwOut  int
+	ReadTimeOut  int
 	WriteTimeOut int
 }
 type AuthClient struct {
-	example rpc.ExampleServiceClient
+	userClient rpc.UserServiceClient
+	roleClient rpc.RoleServiceClient
 }
 
-func InitGrpcClient(conf GrpcConfigClient) {
+func InitGrpcClient(conf ConfigClient) {
 	doOne.Do(func() {
 		err := initConn(conf)
 		if err != nil {
@@ -41,7 +42,7 @@ func InitGrpcClient(conf GrpcConfigClient) {
 	})
 }
 
-func initConn(conf GrpcConfigClient) error {
+func initConn(conf ConfigClient) error {
 	var err error
 	conn, err = grpc.Dial(fmt.Sprintf("%s:%d", conf.Host, conf.Port),
 		grpc.WithTransportCredentials(insecure.NewCredentials()))
@@ -53,16 +54,17 @@ func initConn(conf GrpcConfigClient) error {
 
 func initClient(conn *grpc.ClientConn) {
 	authGrpcClient = &AuthClient{
-		example: rpc.NewExampleServiceClient(conn),
+		userClient: rpc.NewUserServiceClient(conn),
+		roleClient: rpc.NewRoleServiceClient(conn),
 	}
 }
 
-func loadGrpcConf(conf GrpcConfigClient) {
-	if conf.ReadTimwOut < 1000 || conf.WriteTimeOut < 1000 {
-		panic(errors.New("This config of gRPC timeout is detrimental to working system"))
+func loadGrpcConf(conf ConfigClient) {
+	if conf.ReadTimeOut < 1000 || conf.WriteTimeOut < 1000 {
+		panic(errors.New("this config of gRPC timeout is detrimental to working system"))
 	}
 
-	grpcReadTimeout = time.Duration(conf.ReadTimwOut) * time.Millisecond
+	grpcReadTimeout = time.Duration(conf.ReadTimeOut) * time.Millisecond
 	grpcWriteTimeout = time.Duration(conf.WriteTimeOut) * time.Millisecond
 
 	fmt.Println("Grpc read timeout: ", grpcReadTimeout)
@@ -77,19 +79,26 @@ func GetAuthGrpcWriteTimeout() time.Duration {
 	return grpcWriteTimeout
 }
 
-func GrpcClient() *AuthClient {
+func GetGrpcClient() *AuthClient {
 	if authGrpcClient == nil {
 		panic("cannot initial auth grpc client")
 	}
 	return authGrpcClient
 }
 
-func (u AuthClient) Hello() rpc.ExampleServiceClient {
-	return u.example
+func (u AuthClient) UserClient() rpc.UserServiceClient {
+	return u.userClient
+}
+
+func (u AuthClient) RoleClient() rpc.RoleServiceClient {
+	return u.roleClient
 }
 
 func CloseGrpcClient() {
 	if conn != nil {
-		conn.Close()
+		err := conn.Close()
+		if err != nil {
+			panic(err)
+		}
 	}
 }

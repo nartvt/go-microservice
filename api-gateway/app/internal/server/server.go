@@ -61,10 +61,10 @@ func setupAuthGrpcClient() {
 	// Every client connect to grpc server
 	// must build their own configuration themselves.
 	conf := config.Get()
-	grpcConf := grpc.GrpcConfigClient{
+	grpcConf := grpc.ConfigClient{
 		Host:         conf.AuthGrpcConfig.Host,
 		Port:         conf.AuthGrpcConfig.Port,
-		ReadTimwOut:  conf.AuthGrpcConfig.ReadTimeout,
+		ReadTimeOut:  conf.AuthGrpcConfig.ReadTimeout,
 		WriteTimeOut: conf.AuthGrpcConfig.WriteTimeout,
 	}
 	grpc.InitGrpcClient(grpcConf)
@@ -72,7 +72,7 @@ func setupAuthGrpcClient() {
 }
 
 func pingGrpc() {
-	if _, err := client.Hello.Ping(); err != nil {
+	if _, err := client.User.Ping(); err != nil {
 		log.Println(err.Error())
 		panic(err)
 	}

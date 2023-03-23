@@ -3,7 +3,6 @@ package router
 import (
 	aboutRepo "api-gateway/app/domain/usercases/about/repo"
 	aboutHandler "api-gateway/app/transport/about/handler"
-
 	"github.com/gofiber/fiber/v2"
 )
 

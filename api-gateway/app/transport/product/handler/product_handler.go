@@ -1,16 +1,15 @@
 package handler
 
 import (
-	"fmt"
-	"net/http"
-
-	"github.com/gofiber/fiber/v2"
-
 	"api-gateway/app/domain/usercases/product/repo"
 	"api-gateway/app/transport"
 	"api-gateway/app/transport/product/request"
 	"api-gateway/app/transport/product/response"
 	"api-gateway/app/uerror"
+	"fmt"
+	"net/http"
+
+	"github.com/gofiber/fiber/v2"
 )
 
 type ProductHandler struct {

@@ -1,0 +1,10 @@
+syntax = "proto3";
+
+package auth.rpc.product;
+option go_package = "product-service/app/transport/proto-gen/rpc";
+import "app/protobuf/message/product.proto";
+
+service ProductService {
+  rpc GetProductById (auth.message.product.ProductRequest) returns (auth.message.product.ProductResponse){}
+  rpc UpdateProduct (auth.message.product.ProductRequest) returns (auth.message.product.ProductResponse){}
+}

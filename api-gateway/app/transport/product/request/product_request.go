@@ -1,13 +1,12 @@
 package request
 
 import (
+	"api-gateway/app/transport"
+	"api-gateway/app/uerror"
 	"encoding/json"
 	"fmt"
 
 	"github.com/gofiber/fiber/v2"
-
-	"api-gateway/app/transport"
-	"api-gateway/app/uerror"
 )
 
 type ProductRequestParam struct {
