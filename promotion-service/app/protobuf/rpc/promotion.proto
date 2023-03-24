@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+package promotion.rpc;
+option go_package = "promotion-service/app/transport/proto-gen/rpc";
+import "app/protobuf/message/promotion.proto";
+
+service PromotionService {
+  rpc GetPromotionById(promotion.message.PromotionRequest) returns (promotion.message.PromotionResponse){};
+  rpc CreatePromotion(promotion.message.PromotionRequest) returns (promotion.message.PromotionResponse){};
+  rpc UpdatePromotion(promotion.message.PromotionRequest) returns (promotion.message.PromotionResponse){};
+  rpc GetPromotions(promotion.message.PromotionRequest) returns (promotion.message .PromotionResponses){};
+}

@@ -40,7 +40,7 @@ func setupNewsfeedRoute(route fiber.Router) {
 		GET(groupNewsfeedSection, "", groupSectionHandler.GetSections)
 	}
 
-	groupProduct := groupNewsfeedSection.Group("product")
+	groupProduct := groupNewsfeedSection.Group("promotion")
 	{
 		GET(groupProduct, "", groupProductHandler.CreateProduct)
 		GET(groupProduct, "/:sectionId", groupProductHandler.GetProductBySectionId)

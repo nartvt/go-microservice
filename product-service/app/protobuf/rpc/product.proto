@@ -1,12 +1,12 @@
 syntax = "proto3";
 
-package auth.rpc.product;
-option go_package = "product-service/app/transport/proto-gen/rpc";
-import "app/protobuf/message/product.proto";
+package product.rpc.product;
+option go_package = "promotion-service/app/transport/proto-gen/rpc";
+import "app/protobuf/message/promotion.proto";
 
 service ProductService {
-  rpc GetProductById(auth.message.product.ProductRequest) returns (auth.message.product.ProductResponse){};
-  rpc CreateProduct(auth.message.product.ProductRequest) returns (auth.message.product.ProductResponse){};
-  rpc UpdateProduct(auth.message.product.ProductRequest) returns (auth.message.product.ProductResponse){};
-  rpc GetProducts(auth.message.product.ProductRequest) returns (auth.message.product.ProductResponses){};
+  rpc GetProductById(product.message.product.ProductRequest) returns (product.message.product.ProductResponse){};
+  rpc CreateProduct(product.message.product.ProductRequest) returns (product.message.product.ProductResponse){};
+  rpc UpdateProduct(product.message.product.ProductRequest) returns (product.message.product.ProductResponse){};
+  rpc GetProducts(product.message.product.ProductRequest) returns (product.message.product.ProductResponses){};
 }

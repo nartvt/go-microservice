@@ -2,7 +2,7 @@
 // versions:
 // - protoc-gen-go-grpc v1.3.0
 // - protoc             v3.6.1
-// source: app/protobuf/rpc/product.proto
+// source: app/protobuf/rpc/promotion.proto
 
 package rpc
 
@@ -20,10 +20,10 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	ProductService_GetProductById_FullMethodName = "/auth.rpc.product.ProductService/GetProductById"
-	ProductService_CreateProduct_FullMethodName  = "/auth.rpc.product.ProductService/CreateProduct"
-	ProductService_UpdateProduct_FullMethodName  = "/auth.rpc.product.ProductService/UpdateProduct"
-	ProductService_GetProducts_FullMethodName    = "/auth.rpc.product.ProductService/GetProducts"
+	ProductService_GetProductById_FullMethodName = "/auth.rpc.promotion.ProductService/GetProductById"
+	ProductService_CreateProduct_FullMethodName  = "/auth.rpc.promotion.ProductService/CreateProduct"
+	ProductService_UpdateProduct_FullMethodName  = "/auth.rpc.promotion.ProductService/UpdateProduct"
+	ProductService_GetProducts_FullMethodName    = "/auth.rpc.promotion.ProductService/GetProducts"
 )
 
 // ProductServiceClient is the client API for ProductService service.
@@ -196,7 +196,7 @@ func _ProductService_GetProducts_Handler(srv interface{}, ctx context.Context, d
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var ProductService_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "auth.rpc.product.ProductService",
+	ServiceName: "auth.rpc.promotion.ProductService",
 	HandlerType: (*ProductServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
@@ -217,5 +217,5 @@ var ProductService_ServiceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "app/protobuf/rpc/product.proto",
+	Metadata: "app/protobuf/rpc/promotion.proto",
 }

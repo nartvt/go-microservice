@@ -1,0 +1,36 @@
+syntax = "proto3";
+
+package promotion.message;
+option go_package = "promotion-service/app/transport/proto-gen/message";
+
+message Active {
+  bool active = 1;
+};
+
+message PromotionRequest {
+  int64   id        = 1;
+  string  name      = 2;
+  float   price     = 3;
+  string  image     = 4;
+  Active  active    = 5;
+  int64   createdAt = 6;
+  int64   updatedAt = 7;
+  int64   deletedAt = 8;
+  int32   limit     = 9;
+  int32   offset    = 10;
+}
+
+message PromotionResponse {
+  int64   id        = 1;
+  string  name      = 2;
+  float   price     = 3;
+  string  image     = 4;
+  Active  active    = 5;
+  int64   createdAt = 6;
+  int64   updatedAt = 7;
+  int64   deletedAt = 8;
+}
+
+message PromotionResponses {
+  repeated PromotionResponse promotionResponses = 1;
+}

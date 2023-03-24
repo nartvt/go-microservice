@@ -38,7 +38,7 @@ func (p productRepo) GetProductById(ctx context.Context, request *message.Produc
 		return &message.ProductResponse{}, uerror.InternalError(err, err.Error())
 	}
 	if product == nil {
-		return &message.ProductResponse{}, uerror.BadRequestError(fmt.Errorf("product not found %d", request.Id), "product not found")
+		return &message.ProductResponse{}, uerror.BadRequestError(fmt.Errorf("promotion not found %d", request.Id), "promotion not found")
 	}
 	return p.bind(product), nil
 }
@@ -71,7 +71,7 @@ func (p productRepo) UpdateProduct(crx context.Context, request *message.Product
 		return &message.ProductResponse{}, uerror.InternalError(err, err.Error())
 	}
 	if product == nil {
-		return &message.ProductResponse{}, uerror.BadRequestError(fmt.Errorf("product not found %d", request.Id), "product not found")
+		return &message.ProductResponse{}, uerror.BadRequestError(fmt.Errorf("promotion not found %d", request.Id), "promotion not found")
 	}
 	if request.Active != nil {
 		product.Active = request.Active.Active

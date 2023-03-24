@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package rpc;
 option go_package = "../../proto-gen/rpc";
-import "message/product.proto";
+import "message/promotion.proto";
 
 service ExampleService {
   rpc SayHello (HelloRequest) returns (HelloResponse);

@@ -2,7 +2,7 @@
 // versions:
 // 	protoc-gen-go v1.30.0
 // 	protoc        v3.6.1
-// source: app/protobuf/rpc/product.proto
+// source: app/protobuf/rpc/promotion.proto
 
 package rpc
 
@@ -60,19 +60,19 @@ var file_app_protobuf_rpc_product_proto_rawDesc = []byte{
 }
 
 var file_app_protobuf_rpc_product_proto_goTypes = []interface{}{
-	(*message.ProductRequest)(nil),   // 0: auth.message.product.ProductRequest
-	(*message.ProductResponse)(nil),  // 1: auth.message.product.ProductResponse
-	(*message.ProductResponses)(nil), // 2: auth.message.product.ProductResponses
+	(*message.ProductRequest)(nil),   // 0: auth.message.promotion.ProductRequest
+	(*message.ProductResponse)(nil),  // 1: auth.message.promotion.ProductResponse
+	(*message.ProductResponses)(nil), // 2: auth.message.promotion.ProductResponses
 }
 var file_app_protobuf_rpc_product_proto_depIdxs = []int32{
-	0, // 0: auth.rpc.product.ProductService.GetProductById:input_type -> auth.message.product.ProductRequest
-	0, // 1: auth.rpc.product.ProductService.CreateProduct:input_type -> auth.message.product.ProductRequest
-	0, // 2: auth.rpc.product.ProductService.UpdateProduct:input_type -> auth.message.product.ProductRequest
-	0, // 3: auth.rpc.product.ProductService.GetProducts:input_type -> auth.message.product.ProductRequest
-	1, // 4: auth.rpc.product.ProductService.GetProductById:output_type -> auth.message.product.ProductResponse
-	1, // 5: auth.rpc.product.ProductService.CreateProduct:output_type -> auth.message.product.ProductResponse
-	1, // 6: auth.rpc.product.ProductService.UpdateProduct:output_type -> auth.message.product.ProductResponse
-	2, // 7: auth.rpc.product.ProductService.GetProducts:output_type -> auth.message.product.ProductResponses
+	0, // 0: auth.rpc.promotion.ProductService.GetProductById:input_type -> auth.message.promotion.ProductRequest
+	0, // 1: auth.rpc.promotion.ProductService.CreateProduct:input_type -> auth.message.promotion.ProductRequest
+	0, // 2: auth.rpc.promotion.ProductService.UpdateProduct:input_type -> auth.message.promotion.ProductRequest
+	0, // 3: auth.rpc.promotion.ProductService.GetProducts:input_type -> auth.message.promotion.ProductRequest
+	1, // 4: auth.rpc.promotion.ProductService.GetProductById:output_type -> auth.message.promotion.ProductResponse
+	1, // 5: auth.rpc.promotion.ProductService.CreateProduct:output_type -> auth.message.promotion.ProductResponse
+	1, // 6: auth.rpc.promotion.ProductService.UpdateProduct:output_type -> auth.message.promotion.ProductResponse
+	2, // 7: auth.rpc.promotion.ProductService.GetProducts:output_type -> auth.message.promotion.ProductResponses
 	4, // [4:8] is the sub-list for method output_type
 	0, // [0:4] is the sub-list for method input_type
 	0, // [0:0] is the sub-list for extension type_name

@@ -27,10 +27,10 @@ func (d product) GetProductBySectionId(sectionId int, limit int, offset int) ([]
 	var resp []entities.Product
 	total := int64(0)
 	err := db.DB().Model(&entities.Product{}).
-		InnerJoins("JOIN section_products ON product.id = section_products.product_id").
+		InnerJoins("JOIN section_products ON promotion.id = section_products.product_id").
 		InnerJoins("JOIN newsfeed_sections ON section_products.section_id = newsfeed_sections.id").
 		Where("newsfeed_sections.active = TRUE").
-		Where("product.active = TRUE").
+		Where("promotion.active = TRUE").
 		Where("type = ?", common.NewsfeedSectionTypeTopPage).
 		Where("newsfeed_sections.id = ?", sectionId).
 		Limit(limit).

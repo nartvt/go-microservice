@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+package elastic.rpc.product;
+option go_package = "elasticsearch-service/app/transport/proto-gen/rpc";
+import "app/protobuf/message/promotion.proto";
+
+service ProductService {
+  rpc GetProductById(elastic.message.product.ProductRequest) returns (elastic.message.product.ProductResponse){};
+  rpc CreateProduct(elastic.message.product.ProductRequest) returns (elastic.message.product.ProductResponse){};
+  rpc UpdateProduct(elastic.message.product.ProductRequest) returns (elastic.message.product.ProductResponse){};
+  rpc GetProducts(elastic.message.product.ProductRequest) returns (elastic.message.product.ProductResponses){};
+}

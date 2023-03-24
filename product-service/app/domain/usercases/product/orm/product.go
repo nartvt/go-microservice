@@ -12,7 +12,7 @@ type product struct{}
 func (d product) GetProductsPagination(nextId int, limit int) ([]entities.Product, error) {
 	var resp []entities.Product
 	query := db.DB().Model(&entities.Product{}).
-		Where("product.active = TRUE").
+		Where("promotion.active = TRUE").
 		Where("deleted_at IS NULL").
 		Where("active = ?", true).
 		Order("id DESC").
@@ -40,7 +40,7 @@ func (d product) UpdateProductTx(newProduct *entities.Product, tx *gorm.DB) erro
 func (d product) GetProductById(productId int) (*entities.Product, error) {
 	var resp *entities.Product
 	err := db.DB().Model(&entities.Product{}).
-		Where("product.active = TRUE").
+		Where("promotion.active = TRUE").
 		Where("deleted_at IS NULL").
 		Where("id = ?", productId).
 		Limit(1).

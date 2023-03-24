@@ -1,0 +1,11 @@
+server:
+  host: 127.0.0.1
+  port: 8000
+  timeout: 30000
+
+postgres:
+  host: 127.0.0.1
+  port: 5432
+  userName: postgres
+  password: root
+  database: health

@@ -2,7 +2,7 @@
 // versions:
 // 	protoc-gen-go v1.30.0
 // 	protoc        v3.6.1
-// source: app/protobuf/message/product.proto
+// source: app/protobuf/message/promotion.proto
 
 package message
 
@@ -405,15 +405,15 @@ func file_app_protobuf_message_product_proto_rawDescGZIP() []byte {
 
 var file_app_protobuf_message_product_proto_msgTypes = make([]protoimpl.MessageInfo, 4)
 var file_app_protobuf_message_product_proto_goTypes = []interface{}{
-	(*Active)(nil),           // 0: auth.message.product.Active
-	(*ProductRequest)(nil),   // 1: auth.message.product.ProductRequest
-	(*ProductResponse)(nil),  // 2: auth.message.product.ProductResponse
-	(*ProductResponses)(nil), // 3: auth.message.product.ProductResponses
+	(*Active)(nil),           // 0: auth.message.promotion.Active
+	(*ProductRequest)(nil),   // 1: auth.message.promotion.ProductRequest
+	(*ProductResponse)(nil),  // 2: auth.message.promotion.ProductResponse
+	(*ProductResponses)(nil), // 3: auth.message.promotion.ProductResponses
 }
 var file_app_protobuf_message_product_proto_depIdxs = []int32{
-	0, // 0: auth.message.product.ProductRequest.active:type_name -> auth.message.product.Active
-	0, // 1: auth.message.product.ProductResponse.active:type_name -> auth.message.product.Active
-	2, // 2: auth.message.product.ProductResponses.productResponses:type_name -> auth.message.product.ProductResponse
+	0, // 0: auth.message.promotion.ProductRequest.active:type_name -> auth.message.promotion.Active
+	0, // 1: auth.message.promotion.ProductResponse.active:type_name -> auth.message.promotion.Active
+	2, // 2: auth.message.promotion.ProductResponses.productResponses:type_name -> auth.message.promotion.ProductResponse
 	3, // [3:3] is the sub-list for method output_type
 	3, // [3:3] is the sub-list for method input_type
 	3, // [3:3] is the sub-list for extension type_name
