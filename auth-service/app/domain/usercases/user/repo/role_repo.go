@@ -50,6 +50,10 @@ func (r roleRepo) CreateRole(ctx context.Context, req *message.RoleRequest) (*me
 		tx.Rollback()
 		return &message.RoleResponse{}, uerror.InternalError(err, err.Error())
 	}
+	if err = tx.Commit().Error; err != nil {
+		tx.Rollback()
+		return &message.RoleResponse{}, uerror.InternalError(err, err.Error())
+	}
 	return r.bind(roleEntity), nil
 }
 

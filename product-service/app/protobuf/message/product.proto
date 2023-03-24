@@ -3,17 +3,34 @@ syntax = "proto3";
 package auth.message.product;
 option go_package = "product-service/app/transport/proto-gen/message";
 
+message Active {
+  bool active = 1;
+};
+
 message ProductRequest {
   int64   id        = 1;
   string  name      = 2;
-  int64   createdAt = 3;
-  int64   updatedAt = 4;
-  int64   deletedAt = 5;
+  float   price     = 3;
+  string  image     = 4;
+  Active  active    = 5;
+  int64   createdAt = 6;
+  int64   updatedAt = 7;
+  int64   deletedAt = 8;
+  int32   limit     = 9;
+  int32   offset    = 10;
 }
 
 message ProductResponse {
-  int32   id         = 1;
+  int64   id        = 1;
   string  name      = 2;
-  int64   createdAt = 3;
-  int64   updatedAt = 4;
+  float   price     = 3;
+  string  image     = 4;
+  Active  active    = 5;
+  int64   createdAt = 6;
+  int64   updatedAt = 7;
+  int64   deletedAt = 8;
+}
+
+message ProductResponses {
+  repeated ProductResponse productResponses = 1;
 }

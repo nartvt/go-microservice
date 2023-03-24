@@ -29,3 +29,19 @@ func (productTransport) GetProductById(productId int) (*message.ProductResponse,
 	fmt.Println(resp)
 	return resp, nil
 }
+
+func (productTransport) GetProducts(productId int, limit int) (*message.ProductResponses, error) {
+	ctx, cancel := context.WithTimeout(context.Background(), grpc.GetProductGrpcReadTimeout())
+	defer cancel()
+	req := &message.ProductRequest{
+		Id:    int64(productId),
+		Limit: int32(limit),
+	}
+	resp, err := grpc.GetGrpcClient().ProductService().GetProducts(ctx, req)
+	if err != nil {
+		fmt.Println(err.Error())
+		return resp, err
+	}
+	fmt.Println(resp)
+	return resp, nil
+}

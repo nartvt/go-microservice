@@ -58,6 +58,10 @@ func (u userRepo) CreateUser(ctx context.Context, request *message.UserRequest) 
 			return &message.UserResponse{}, uerror.InternalError(err, err.Error())
 		}
 	}
+	if err = tx.Commit().Error; err != nil {
+		tx.Rollback()
+		return &message.UserResponse{}, uerror.InternalError(err, err.Error())
+	}
 	return u.Bind(&newUser), nil
 }
 
@@ -108,6 +112,10 @@ func (u userRepo) UpdateUserInfo(ctx context.Context, request *message.UserReque
 			tx.Rollback()
 			return &message.UserResponse{}, uerror.InternalError(err, err.Error())
 		}
+	}
+	if err = tx.Commit().Error; err != nil {
+		tx.Rollback()
+		return &message.UserResponse{}, uerror.InternalError(err, err.Error())
 	}
 	return u.Bind(userOrm), nil
 }

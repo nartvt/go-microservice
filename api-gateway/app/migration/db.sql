@@ -2,7 +2,7 @@ CREATE TYPE newsfeed_sections_type_enum AS ENUM (
     'top_page',
     'personal_record',
     'about_recommendations'
-    );
+   );
 
 CREATE TABLE "newsfeed_sections"
 (

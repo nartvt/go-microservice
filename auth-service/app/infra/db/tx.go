@@ -1,13 +1,12 @@
-package common
+package db
 
 import (
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"
-	"product-service/app/infra/db"
 )
 
 func BeginTx() *gorm.DB {
-	return db.DB().Session(&gorm.Session{Logger: logger.Default.LogMode(logger.Info)}).Begin()
+	return DB().Session(&gorm.Session{Logger: logger.Default.LogMode(logger.Info)}).Begin()
 }
 
 func RecoveryTx(tx *gorm.DB) {

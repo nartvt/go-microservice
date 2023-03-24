@@ -5,6 +5,8 @@ option go_package = "product-service/app/transport/proto-gen/rpc";
 import "app/protobuf/message/product.proto";
 
 service ProductService {
-  rpc GetProductById (auth.message.product.ProductRequest) returns (auth.message.product.ProductResponse){}
-  rpc UpdateProduct (auth.message.product.ProductRequest) returns (auth.message.product.ProductResponse){}
+  rpc GetProductById(auth.message.product.ProductRequest) returns (auth.message.product.ProductResponse){};
+  rpc CreateProduct(auth.message.product.ProductRequest) returns (auth.message.product.ProductResponse){};
+  rpc UpdateProduct(auth.message.product.ProductRequest) returns (auth.message.product.ProductResponse){};
+  rpc GetProducts(auth.message.product.ProductRequest) returns (auth.message.product.ProductResponses){};
 }
