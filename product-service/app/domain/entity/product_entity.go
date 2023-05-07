@@ -1,36 +1,36 @@
-package repo
+package entity
 
 import (
 	"context"
 	"fmt"
-	"product-service/app/domain/entities"
-	"product-service/app/domain/usercases/product/orm"
+	"product-service/app/domain/model"
+	"product-service/app/domain/usercases/product/repository"
 	"product-service/app/infra/db"
-	"product-service/app/transport/proto-gen/message"
-	"product-service/app/transport/proto-gen/rpc"
+	"product-service/app/proto-gen/message"
+	"product-service/app/proto-gen/rpc"
 	"product-service/app/uerror"
 	"time"
 
 	"gorm.io/gorm"
 )
 
-type productRepo struct {
+type productEntitySingletonGrpc struct {
 	rpc.UnimplementedProductServiceServer
 }
 
-var Product rpc.ProductServiceServer
+var ProductEntity rpc.ProductServiceServer
 
 func init() {
-	Product = &productRepo{
+	ProductEntity = &productEntitySingletonGrpc{
 		UnimplementedProductServiceServer: rpc.UnimplementedProductServiceServer{},
 	}
 }
 
-func (p productRepo) GetProductById(ctx context.Context, request *message.ProductRequest) (*message.ProductResponse, error) {
+func (p productEntitySingletonGrpc) GetProductById(ctx context.Context, request *message.ProductRequest) (*message.ProductResponse, error) {
 	if request == nil || request.Id <= 0 {
 		return &message.ProductResponse{}, nil
 	}
-	product, err := orm.Product.GetProductById(int(request.Id))
+	product, err := repository.ProductRepository.GetProductById(int(request.Id))
 	if err != nil && err == gorm.ErrRecordNotFound {
 		return &message.ProductResponse{}, nil
 	}
@@ -42,14 +42,14 @@ func (p productRepo) GetProductById(ctx context.Context, request *message.Produc
 	}
 	return p.bind(product), nil
 }
-func (p productRepo) GetProducts(ctx context.Context, request *message.ProductRequest) (*message.ProductResponses, error) {
+func (p productEntitySingletonGrpc) GetProducts(ctx context.Context, request *message.ProductRequest) (*message.ProductResponses, error) {
 	if request == nil {
 		return &message.ProductResponses{}, nil
 	}
 	if request.Id <= 0 && request.Limit <= 0 {
 
 	}
-	products, err := orm.Product.GetProductsPagination(int(request.Id), int(request.Limit))
+	products, err := repository.ProductRepository.GetProductsPagination(int(request.Id), int(request.Limit))
 	if err != nil {
 		return &message.ProductResponses{}, uerror.InternalError(err, err.Error())
 	}
@@ -59,11 +59,11 @@ func (p productRepo) GetProducts(ctx context.Context, request *message.ProductRe
 	return p.binds(products), nil
 }
 
-func (p productRepo) UpdateProduct(crx context.Context, request *message.ProductRequest) (*message.ProductResponse, error) {
+func (p productEntitySingletonGrpc) UpdateProduct(crx context.Context, request *message.ProductRequest) (*message.ProductResponse, error) {
 	if request == nil || request.Id <= 0 {
 		return &message.ProductResponse{}, nil
 	}
-	product, err := orm.Product.GetProductById(int(request.Id))
+	product, err := repository.ProductRepository.GetProductById(int(request.Id))
 	if err != nil && err == gorm.ErrRecordNotFound {
 		return &message.ProductResponse{}, nil
 	}
@@ -88,7 +88,7 @@ func (p productRepo) UpdateProduct(crx context.Context, request *message.Product
 	tx := db.BeginTx()
 	defer db.RecoveryTx(tx)
 
-	err = orm.Product.UpdateProductTx(product, tx)
+	err = repository.ProductRepository.UpdateProductTx(product, tx)
 	if err != nil {
 		tx.Rollback()
 		return &message.ProductResponse{}, uerror.InternalError(err, err.Error())
@@ -101,7 +101,7 @@ func (p productRepo) UpdateProduct(crx context.Context, request *message.Product
 	return p.bind(product), nil
 }
 
-func (p productRepo) CreateProduct(ctx context.Context, newProduct *message.ProductRequest) (*message.ProductResponse, error) {
+func (p productEntitySingletonGrpc) CreateProduct(ctx context.Context, newProduct *message.ProductRequest) (*message.ProductResponse, error) {
 	if newProduct == nil {
 		return &message.ProductResponse{}, nil
 	}
@@ -110,7 +110,7 @@ func (p productRepo) CreateProduct(ctx context.Context, newProduct *message.Prod
 	defer db.RecoveryTx(tx)
 
 	now := time.Now()
-	newProductEntity := &entities.Product{
+	newProductEntity := &model.Product{
 		Name:      newProduct.Name,
 		Active:    true,
 		Price:     newProduct.Price,
@@ -118,7 +118,7 @@ func (p productRepo) CreateProduct(ctx context.Context, newProduct *message.Prod
 		CreatedAt: &now,
 		UpdatedAt: &now,
 	}
-	err := orm.Product.CreateProductTx(newProductEntity, tx)
+	err := repository.ProductRepository.CreateProductTx(newProductEntity, tx)
 	if err != nil {
 		tx.Rollback()
 		return &message.ProductResponse{}, uerror.InternalError(err, err.Error())
@@ -130,7 +130,7 @@ func (p productRepo) CreateProduct(ctx context.Context, newProduct *message.Prod
 	return p.bind(newProductEntity), nil
 }
 
-func (productRepo) bind(product *entities.Product) *message.ProductResponse {
+func (productEntitySingletonGrpc) bind(product *model.Product) *message.ProductResponse {
 	if product == nil {
 		return &message.ProductResponse{}
 	}
@@ -147,7 +147,7 @@ func (productRepo) bind(product *entities.Product) *message.ProductResponse {
 	}
 }
 
-func (p productRepo) binds(products []entities.Product) *message.ProductResponses {
+func (p productEntitySingletonGrpc) binds(products []model.Product) *message.ProductResponses {
 	if len(products) <= 0 {
 		return &message.ProductResponses{}
 	}

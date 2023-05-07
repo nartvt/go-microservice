@@ -1,13 +1,14 @@
 package grpc
 
 import (
+	"elasticsearch-service/app/transport/proto-gen/rpc"
 	"errors"
 	"fmt"
-	"google.golang.org/grpc"
-	"google.golang.org/grpc/credentials/insecure"
-	"product-service/app/proto-gen/rpc"
 	"sync"
 	"time"
+
+	"google.golang.org/grpc"
+	"google.golang.org/grpc/credentials/insecure"
 )
 
 var (
@@ -69,11 +70,11 @@ func loadGrpcConf(conf ConfigClient) {
 	fmt.Println("Grpc write timeout: ", grpcWriteTimeout)
 }
 
-func GetProductGrpcReadTimeout() time.Duration {
+func GetGrpcReadTimeout() time.Duration {
 	return grpcReadTimeout
 }
 
-func GetProductGrpcWriteTimeout() time.Duration {
+func GetGrpcWriteTimeout() time.Duration {
 	return grpcWriteTimeout
 }
 
@@ -84,7 +85,7 @@ func GetGrpcClient() *ProductClient {
 	return productGrpcClient
 }
 
-func (u ProductClient) ProductService() rpc.ProductServiceClient {
+func (u ProductClient) ProductClient() rpc.ProductServiceClient {
 	return u.productClient
 }
 

@@ -7,8 +7,8 @@ import (
 	"log"
 	"net"
 	"product-service/app/config"
-	"product-service/app/domain/usercases/product/repo"
-	"product-service/app/transport/proto-gen/rpc"
+	"product-service/app/domain/entity"
+	"product-service/app/proto-gen/rpc"
 	"time"
 )
 
@@ -21,7 +21,7 @@ func InitGrpcServer() {
 	}
 
 	var (
-		hServer = repo.Product
+		hServer = entity.ProductEntity
 	)
 
 	ops := []grpc.ServerOption{

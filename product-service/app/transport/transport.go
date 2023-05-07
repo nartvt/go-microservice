@@ -4,7 +4,7 @@ import (
 	"context"
 	"fmt"
 	"product-service/app/infra/grpc"
-	"product-service/app/transport/proto-gen/message"
+	"product-service/app/proto-gen/message"
 )
 
 var ProductTransport *productTransport
