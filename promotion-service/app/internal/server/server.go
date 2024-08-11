@@ -11,8 +11,8 @@ func main() {
 }
 
 func setupInfra() {
-	grpc.InitGrpcServer()
 	db.InitPostgres()
+	grpc.InitGrpcServer()
 }
 
 func closeInfra() {

@@ -6,4 +6,4 @@ COPY bin/api_gateway .
 
 CMD ["./","api_gateway" ]
 
-EXPOSE 9000
+EXPOSE 5000

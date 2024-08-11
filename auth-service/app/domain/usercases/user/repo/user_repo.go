@@ -2,7 +2,9 @@ package repo
 
 import (
 	"auth-service/app/domain/entities"
-	"auth-service/app/domain/usercases/user/orm"
+	"auth-service/app/domain/storage/role/orm"
+	orm2 "auth-service/app/domain/storage/user/orm"
+	"auth-service/app/domain/storage/user_role"
 	"auth-service/app/infra/db"
 	"auth-service/app/proto-gen/message"
 	"auth-service/app/proto-gen/rpc"
@@ -42,7 +44,7 @@ func (u userRepo) CreateUser(ctx context.Context, request *message.UserRequest) 
 		createdAt := time.UnixMilli(request.CreatedAt)
 		newUser.CreatedAt = &createdAt
 	}
-	err := orm.User.UpdateUserTx(&newUser, tx)
+	err := orm2.User.UpdateUserTx(&newUser, tx)
 	if err != nil {
 		tx.Rollback()
 		return &message.UserResponse{}, uerror.InternalError(err, err.Error())
@@ -52,7 +54,7 @@ func (u userRepo) CreateUser(ctx context.Context, request *message.UserRequest) 
 			RoleId: int(request.Role),
 			UserId: newUser.Id,
 		}
-		err = orm.UserRole.CreateUserRoleTx(userRole, tx)
+		err = user_role.UserRole.CreateUserRoleTx(userRole, tx)
 		if err != nil {
 			tx.Rollback()
 			return &message.UserResponse{}, uerror.InternalError(err, err.Error())
@@ -72,7 +74,7 @@ func (u userRepo) UpdateUserInfo(ctx context.Context, request *message.UserReque
 	tx := db.BeginTx()
 	defer db.RecoveryTx(tx)
 
-	userOrm, err := orm.User.GetUserByUserNameTx(request.UserName, tx)
+	userOrm, err := orm2.User.GetUserByUserNameTx(request.UserName, tx)
 	if err != nil && err == gorm.ErrRecordNotFound {
 		tx.Rollback()
 		return &message.UserResponse{}, err
@@ -100,7 +102,7 @@ func (u userRepo) UpdateUserInfo(ctx context.Context, request *message.UserReque
 		userOrm.UpdatedAt = &now
 	}
 
-	err = orm.User.UpdateUserTx(userOrm, tx)
+	err = orm2.User.UpdateUserTx(userOrm, tx)
 	if err != nil {
 		tx.Rollback()
 		return &message.UserResponse{}, uerror.InternalError(err, err.Error())
@@ -125,7 +127,7 @@ func (u userRepo) GetUserByUserName(ctx context.Context, request *message.UserRe
 		return nil, nil
 	}
 
-	userOrm, err := orm.User.GetUserByUserName(request.UserName)
+	userOrm, err := orm2.User.GetUserByUserName(request.UserName)
 	if err != nil && err == gorm.ErrRecordNotFound {
 		return nil, nil
 	}

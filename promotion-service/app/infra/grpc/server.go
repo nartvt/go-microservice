@@ -7,8 +7,8 @@ import (
 	"log"
 	"net"
 	"promotion-service/app/config"
-	"promotion-service/app/domain/usercases/promotion/repo"
-	"promotion-service/app/transport/proto-gen/rpc"
+	"promotion-service/app/domain/entity"
+	"promotion-service/app/proto-gen/rpc"
 	"time"
 )
 
@@ -21,7 +21,7 @@ func InitGrpcServer() {
 	}
 
 	var (
-		hServer = repo.PromotionRepo
+		hServer = entity.PromotionEntity
 	)
 
 	ops := []grpc.ServerOption{

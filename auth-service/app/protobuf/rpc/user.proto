@@ -1,13 +1,13 @@
 syntax = "proto3";
 
-package auth.user.rpc;
+package auth.user;
 option go_package = "auth-service/app/proto-gen/rpc";
 import "app/protobuf/message/user.proto";
 
 service UserService {
-  rpc GetUserByUserName(auth.message.user.UserRequest)returns (auth.message.user.UserResponse){};
-  rpc GetTokenByUserName(auth.message.user.UserRequest)returns (auth.message.user.TokenResponse){};
-  rpc CreateUser(auth.message.user.UserRequest)returns (auth.message.user.UserResponse){};
-  rpc UpdateUserInfo(auth.message.user.UserRequest)returns (auth.message.user.UserResponse){};
-  rpc Ping(auth.message.user.UserRequest)returns (auth.message.user.UserResponse){};
+  rpc GetUserByUserName(auth.message.UserRequest)returns (auth.message.UserResponse){};
+  rpc GetTokenByUserName(auth.message.UserRequest)returns (auth.message.TokenResponse){};
+  rpc CreateUser(auth.message.UserRequest)returns (auth.message.UserResponse){};
+  rpc UpdateUserInfo(auth.message.UserRequest)returns (auth.message.UserResponse){};
+  rpc Ping(auth.message.UserRequest)returns (auth.message.UserResponse){};
 }

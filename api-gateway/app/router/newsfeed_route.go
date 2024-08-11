@@ -2,16 +2,15 @@ package router
 
 import (
 	productRepo "api-gateway/app/domain/usercases/product/repo"
-	bodyRecordRepo "api-gateway/app/domain/usercases/record/body/repo"
-	diaryRecordRepo "api-gateway/app/domain/usercases/record/diary/repo"
-	exerciseRecordRepo "api-gateway/app/domain/usercases/record/exercise/repo"
-	sectionRepo "api-gateway/app/domain/usercases/section/repo"
+	bodyRecordRepo "api-gateway/app/domain/usercases/record/body/repository"
+	diaryRecordRepo "api-gateway/app/domain/usercases/record/diary/repository"
+	exerciseRecordRepo "api-gateway/app/domain/usercases/record/exercise/repository"
+	sectionRepo "api-gateway/app/domain/usercases/section/repository"
 	productHandler "api-gateway/app/transport/product/handler"
 	bodyRecordHandler "api-gateway/app/transport/record/body/handler"
 	diaryRecordHandler "api-gateway/app/transport/record/diary/handler"
 	exerciseRecordHandler "api-gateway/app/transport/record/exercise/handler"
 	sectionHandler "api-gateway/app/transport/section/handler"
-	"github.com/gofiber/fiber/v2"
 )
 
 func setupNewsfeedRoute(route fiber.Router) {

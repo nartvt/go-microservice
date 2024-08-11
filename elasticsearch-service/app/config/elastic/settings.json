@@ -1,0 +1,14 @@
+{
+	"mappings": {
+		"_doc": {
+			"properties": {
+				"id": {
+					"type": "interger"
+				},
+				"createdAt": {
+					"type": "integer"
+				}
+			}
+		}
+	}
+}

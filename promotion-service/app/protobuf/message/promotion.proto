@@ -1,7 +1,7 @@
 syntax = "proto3";
 
 package promotion.message;
-option go_package = "promotion-service/app/transport/proto-gen/message";
+option go_package = "promotion-service/app/proto-gen/message";
 
 message Active {
   bool active = 1;
@@ -21,14 +21,24 @@ message PromotionRequest {
 }
 
 message PromotionResponse {
-  int64   id        = 1;
-  string  name      = 2;
-  float   price     = 3;
-  string  image     = 4;
-  Active  active    = 5;
-  int64   createdAt = 6;
-  int64   updatedAt = 7;
-  int64   deletedAt = 8;
+  int64   id                      = 1;
+  string  code                    = 2;
+  string  promotionType           = 3;
+  float   value                   = 4;
+  string  image                   = 5;
+  Active  active                  = 6;
+  int32   createdBy               = 7;
+  int64   createdAt               = 8;
+  int64   updatedAt               = 9;
+  int64   deletedAt               = 10;
+  int64   activeFrom              = 11;
+  int64   activeTo                = 12;
+  int64   dailyActiveFrom         = 13;
+  int32   dailyActiveTo           = 14;
+  int32   maxActiveTime           = 15;
+  int32   maxDailyActiveTime      = 16;
+  int32   perUserActiveTime       = 17;
+  int32   perUserDailyActiveTime  = 18;
 }
 
 message PromotionResponses {

@@ -4,6 +4,8 @@ DATE_NOW=$(shell date +%Y_%m_%d_%m_%S)
 
 PROTOBUF_MESSAGE=$(shell find app/protobuf/message -type f -name "*.proto")
 PROTOBUF_RPC=$(shell find app/protobuf/rpc -type f -name "*.proto")
+PROTO_GEN_MESSAGE="app/proto-gen/message/"
+PROTO_GEN_RPC="app/proto-gen/rpc/"
 
 deploy: backup build docker_build
 
@@ -19,7 +21,7 @@ grpc_models:
 
 grpc_model_move:
 	@echo "Move proto message: " \
-	&& mv app/protobuf/message/*.go app/transport/proto-gen/message/ && echo "===> ok"
+	&& mv app/protobuf/message/*.go ${PROTO_GEN_MESSAGE} && echo "===> ok"
 
 grpc_rpc:
 	@echo "Generate proto rpc: "
@@ -29,7 +31,7 @@ grpc_rpc:
 
 grpc_rpc_move:
 	@echo "Move proto rpc: " \
-	&& mv app/protobuf/rpc/*.go app/transport/proto-gen/rpc/ && echo "===> ok"
+	&& mv app/protobuf/rpc/*.go ${PROTO_GEN_RPC} && echo "===> ok"
 
 backup:
 	@echo "Backup Current Binary:" \

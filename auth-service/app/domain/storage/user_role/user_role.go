@@ -1,4 +1,4 @@
-package orm
+package user_role
 
 import (
 	"auth-service/app/domain/entities"

@@ -1,7 +1,7 @@
 package router
 
 import (
-	aboutRepo "api-gateway/app/domain/usercases/about/repo"
+	aboutRepo "api-gateway/app/domain/usercases/about/repository"
 	aboutHandler "api-gateway/app/transport/about/handler"
 )
 

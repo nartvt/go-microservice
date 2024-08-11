@@ -14,19 +14,19 @@ import (
 	"gorm.io/gorm"
 )
 
-type productEntitySingletonGrpc struct {
+type productEntity struct {
 	rpc.UnimplementedProductServiceServer
 }
 
 var ProductEntity rpc.ProductServiceServer
 
 func init() {
-	ProductEntity = &productEntitySingletonGrpc{
+	ProductEntity = &productEntity{
 		UnimplementedProductServiceServer: rpc.UnimplementedProductServiceServer{},
 	}
 }
 
-func (p productEntitySingletonGrpc) GetProductById(ctx context.Context, request *message.ProductRequest) (*message.ProductResponse, error) {
+func (p productEntity) GetProductById(ctx context.Context, request *message.ProductRequest) (*message.ProductResponse, error) {
 	if request == nil || request.Id <= 0 {
 		return &message.ProductResponse{}, nil
 	}
@@ -42,7 +42,8 @@ func (p productEntitySingletonGrpc) GetProductById(ctx context.Context, request 
 	}
 	return p.bind(product), nil
 }
-func (p productEntitySingletonGrpc) GetProducts(ctx context.Context, request *message.ProductRequest) (*message.ProductResponses, error) {
+
+func (p productEntity) GetProducts(ctx context.Context, request *message.ProductRequest) (*message.ProductResponses, error) {
 	if request == nil {
 		return &message.ProductResponses{}, nil
 	}
@@ -59,7 +60,7 @@ func (p productEntitySingletonGrpc) GetProducts(ctx context.Context, request *me
 	return p.binds(products), nil
 }
 
-func (p productEntitySingletonGrpc) UpdateProduct(crx context.Context, request *message.ProductRequest) (*message.ProductResponse, error) {
+func (p productEntity) UpdateProduct(crx context.Context, request *message.ProductRequest) (*message.ProductResponse, error) {
 	if request == nil || request.Id <= 0 {
 		return &message.ProductResponse{}, nil
 	}
@@ -101,7 +102,7 @@ func (p productEntitySingletonGrpc) UpdateProduct(crx context.Context, request *
 	return p.bind(product), nil
 }
 
-func (p productEntitySingletonGrpc) CreateProduct(ctx context.Context, newProduct *message.ProductRequest) (*message.ProductResponse, error) {
+func (p productEntity) CreateProduct(ctx context.Context, newProduct *message.ProductRequest) (*message.ProductResponse, error) {
 	if newProduct == nil {
 		return &message.ProductResponse{}, nil
 	}
@@ -130,7 +131,7 @@ func (p productEntitySingletonGrpc) CreateProduct(ctx context.Context, newProduc
 	return p.bind(newProductEntity), nil
 }
 
-func (productEntitySingletonGrpc) bind(product *model.Product) *message.ProductResponse {
+func (productEntity) bind(product *model.Product) *message.ProductResponse {
 	if product == nil {
 		return &message.ProductResponse{}
 	}
@@ -147,7 +148,7 @@ func (productEntitySingletonGrpc) bind(product *model.Product) *message.ProductR
 	}
 }
 
-func (p productEntitySingletonGrpc) binds(products []model.Product) *message.ProductResponses {
+func (p productEntity) binds(products []model.Product) *message.ProductResponses {
 	if len(products) <= 0 {
 		return &message.ProductResponses{}
 	}

@@ -1,7 +1,7 @@
 syntax = "proto3";
 
-package product.message.product;
-option go_package = "promotion-service/app/transport/proto-gen/message";
+package product.message;
+option go_package = "product-service/app/proto-gen/message";
 
 message Active {
   bool active = 1;

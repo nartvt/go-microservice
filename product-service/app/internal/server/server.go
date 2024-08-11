@@ -1,7 +1,9 @@
 package main
 
-import "product-service/app/infra/grpc"
-import "product-service/app/infra/db"
+import (
+	"product-service/app/infra/db"
+	"product-service/app/infra/grpc"
+)
 
 func main() {
 	setupInfra()

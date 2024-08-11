@@ -1,9 +1,8 @@
 package router
 
 import (
-	aboutRepo "api-gateway/app/domain/usercases/about/repo"
+	aboutRepo "api-gateway/app/domain/usercases/about/repository"
 	aboutHandler "api-gateway/app/transport/about/handler"
-	"github.com/gofiber/fiber/v2"
 )
 
 func setupAboutRoute(v1 fiber.Router) {

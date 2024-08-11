@@ -6,10 +6,11 @@ import (
 	"elasticsearch-service/app/domain/usercases/product/repo"
 	"elasticsearch-service/app/transport/proto-gen/rpc"
 	"fmt"
-	"google.golang.org/grpc"
 	"log"
 	"net"
 	"time"
+
+	"google.golang.org/grpc"
 )
 
 func InitGrpcServer() {

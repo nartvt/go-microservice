@@ -4,10 +4,11 @@ import (
 	conf "api-gateway/app/config"
 	"api-gateway/app/domain/usercases/user/repo"
 	"fmt"
-	"github.com/dgrijalva/jwt-go"
-	"github.com/gofiber/fiber/v2"
 	"strings"
 	"time"
+
+	"github.com/dgrijalva/jwt-go"
+	"github.com/gofiber/fiber/v2"
 )
 
 const (

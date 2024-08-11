@@ -1,11 +1,11 @@
 syntax = "proto3";
 
-package auth.role.rpc;
+package auth.role;
 option go_package = "auth-service/app/proto-gen/rpc";
 import "app/protobuf/message/role.proto";
 
 service RoleService {
-  rpc GetRoleById(auth.message.role.RoleRequest)returns (auth.message.role.RoleResponse){};
-  rpc CreateRole(auth.message.role.RoleRequest)returns (auth.message.role.RoleResponse){};
-  rpc GetRoleByUserId(auth.message.role.RoleRequest)returns (auth.message.role.RoleResponse){};
+  rpc GetRoleById(auth.message.RoleRequest)returns (auth.message.RoleResponse){};
+  rpc CreateRole(auth.message.RoleRequest)returns (auth.message.RoleResponse){};
+  rpc GetRoleByUserId(auth.message.RoleRequest)returns (auth.message.RoleResponse){};
 }

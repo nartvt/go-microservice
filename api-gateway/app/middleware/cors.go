@@ -2,9 +2,10 @@ package middleware
 
 import (
 	"api-gateway/app/config"
+	"time"
+
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/cors"
-	"time"
 )
 
 func CorsFilter() fiber.Handler {
